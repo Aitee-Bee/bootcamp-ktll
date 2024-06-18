@@ -58,15 +58,63 @@ as the least argument and it has to be string.
 After you have openned a file, the next most important thing is
 to ensure the file is closed.
 """
-pointer = open('hello.txt')
+pointer = open('hello_write.txt', "w") # opening a file in write mode
+
 try:
     pointer.write("Please create the file and add this line for me.")
 except FileNotFoundError as e:
-    pass
+    print("File was not found.", e)
 finally:
     pointer.close()
 
-p = open('hello.txt')
-p.close()
 
-print("Can you please print me?")
+"""
+# CLASSWORK
+---------------------------------------------------
+Write a function that takes one positional 
+argument called vowels, and a variable number 
+of string arguments and add only strings that
+starts with a vowel letter to a list.
+Then return the list.
+"""
+def vowel_words(vowels, *args):
+    vowel_list = []
+    for word in args:
+        if word[0] in vowels:
+            vowel_list.append(word)
+    return vowel_list
+
+vowels = "aeiou"
+print(vowel_words(vowels, "about", "lion", "king", "under", "open"))
+
+"""
+CONTEXT IN PYTHON
+--------------------------------------------
+In python the with statement creates a runtime
+context that allows you to run lines of code
+under the control of a context manager.
+
+Compared to the try-except option discussed earlier,
+the with statement can make your code more clearer
+and safer.
+
+SYNTAX
+---------------------------------------------
+with expression as alias_name:
+    code statement - doing something with alias_name
+    code statement - doing something with alias_name
+    ...
+"""
+with open("hello.txt", "r") as file:
+    lines = file.readlines() # will read the whole content of the file into a list
+    for line in lines:
+        print(line)
+
+with open("hello.txt", "r") as file:
+    line = file.readline() # reads the content of a file line by line
+    while line != '': # EOF is not an empty string
+        print(line, end='')
+        line = file.readline()
+
+with open("hello_write.txt", "w") as p:
+    p.write("Please")

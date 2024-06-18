@@ -67,8 +67,8 @@ car1 = Car() # this is how to create a car object by creating an instance of a c
 car2 = Car()
 car3 = Car()
 
-car1.color # this will give me the color of car1 object
-car2.doors # this will give me the color of car2 object
+# car1.color # this will give me the color of car1 object
+# car2.doors # this will give me the color of car2 object
 
 
 
@@ -110,7 +110,7 @@ are asummed to be nonpublic.
 """
 Class constructor
 ------------------------------------------------------------------
-This is primarilily responsible for establishing the state of a 
+This is primarily responsible for establishing the state of a 
 newly created object. It will take care of assigning the right
 values to the class attributes/properties. 
 
@@ -125,9 +125,79 @@ SELF INDENTIFIER
 The self identifier basically identifies the instance upon which a
 method is invoked/called.
 """
-class CreditCard:
-    chip = True # class attributes
+class CreditCardOld:
+    instance_count = 0 # class attribute
 
-    def __init__(self, cvv, expring_date):
-        self.cvv = cvv # instance attributes
-        self.expring_date = expring_date # instance attributes
+    def __init__(self, name, cvv, expring_date): # constructor
+        self.name = name # instance attribute
+        self.cvv = cvv # instance attribute
+        self.expring_date = expring_date # instance attribute
+
+    def get_name(self): # a function associated with a class is called a method
+        return self.name
+
+
+# instantiate the CreditCard class
+itoro_credit_card = CreditCardOld("itoro", 438, "15/28")
+itoro_credit_card.instance_count += 1
+
+
+uduak_credit_card = CreditCardOld("uduak", 934, "21/29")
+uduak_credit_card.instance_count += 5
+
+def greeting(name):
+    return 'hello' + name
+
+greeting('mfon')
+
+
+"""
+Docstring
+Is a paragraph the tells a user how to use the class or
+method or even ordinary function.
+"""
+
+class CreditCard:
+    """A simple credit card."""
+
+    def __init__(self, customer_name, bank, card_type, account):
+        """Instantiate the class with new attributes.
+        
+        customer_name: the name of the card holder
+        bank: the issuer bank name
+        type: the type of the card. e.g master, verve, visa
+        account: the account number associated with card
+        balance: the initial balance of the card
+        """
+        self.customer_name = customer_name
+        self.bank = bank
+        self.card_type = card_type
+        self.account = account
+        self.limit = 100
+        self.balance = 0
+    
+    def get_customer_name(self):
+        """Return the name of the card holder."""
+        pass
+
+    def get_bank(self):
+        """Return the name of the bank."""
+        pass
+
+    def charge(self, amount):
+        """Debit the card a given amount, 
+        assuming there is sufficient balance.
+        
+        Return True if the transaction was successful, False otherwise.
+        """
+        if self.balance > amount:
+            return True
+        else:
+            return False
+
+    def make_payment(self, amount):
+        """Process a payment made with the card."""
+        if self.balance < amount + self.limit:
+            return "Insufficient funds."
+        else:
+            self.balance -= amount
