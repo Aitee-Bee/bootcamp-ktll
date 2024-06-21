@@ -159,6 +159,7 @@ method or even ordinary function.
 
 class CreditCard:
     """A simple credit card."""
+    number_of_instance = 0 # class attribute
 
     def __init__(self, customer_name, bank, card_type, account):
         """Instantiate the class with new attributes.
@@ -175,14 +176,29 @@ class CreditCard:
         self.account = account
         self.limit = 100
         self.balance = 0
+        self.instance = 0
+        CreditCard.number_of_instance += 1
+        self.set_instance()
     
     def get_customer_name(self):
         """Return the name of the card holder."""
-        pass
+        return f"customer's name: {self.customer_name}"
 
     def get_bank(self):
         """Return the name of the bank."""
-        pass
+        return f"bank name: {self.bank}"
+    
+    def get_balance(self):
+        """Return the balance."""
+        return self.balance
+    
+    def set_balance(self, balance):
+        """Set the value for balance."""
+        self.balance = balance
+    
+    def set_instance(self):
+        """A trial example."""
+        self.instance += 1
 
     def charge(self, amount):
         """Debit the card a given amount, 
@@ -201,3 +217,97 @@ class CreditCard:
             return "Insufficient funds."
         else:
             self.balance -= amount
+
+
+uduak_card = CreditCard("Uduak", "keystone", "master card", 6758473893)
+itoro_card = CreditCard("Itoro", "access", "master card", 558693875)
+emem_card = CreditCard("Emem", "zenith", "verve", 8768574637)
+
+print(uduak_card.set_balance(19000))
+print(uduak_card.get_balance())
+print(uduak_card.number_of_instance)
+print(uduak_card.instance)
+
+print(itoro_card.number_of_instance)
+print(itoro_card.instance)
+print(emem_card.number_of_instance)
+print(emem_card.instance)
+
+"""
+# INHERITANCE
+---------------------------------------------------------------------
+Inheritance is the process by which a class takes all the attributes
+and methods from another class.
+
+Here we are looking at a parent, child relationship.
+In python, a class inherits from another that is passed into it as
+an argument.
+"""
+class Parent:
+    name = "parent"
+
+    def height(self):
+        return 4.5
+
+class Child(Parent):
+    name = "child"
+
+    def height(self):
+        return 6.2
+
+parent = Parent()
+print(parent.name)
+print(parent.height())
+child = Child()
+print(child.name)
+print(child.height())
+
+class Rectangle:
+    """The parent class."""
+
+    def __init__(self, width=0, height=0):
+        """Initialize the class and set the value for width and height."""
+        self.width = width
+        self.height = height
+
+    @property
+    def width(self):
+        """Get the width property."""
+        return self.width
+    
+    @property
+    def height(self):
+        """Get the height property."""
+        return self.height
+
+    @width.setter
+    def width(self, value):
+        """ Set the value of the width attribute."""
+        if type(value) is not int:
+            raise TypeError('width must be an integer')
+        if value < 0:
+            raise ValueError('width must be greater than 0')
+        self.width = value
+
+    @height.setter
+    def height(self, value):
+        """Set the value of the height attribute."""
+        if isinstance(value, int):
+            raise TypeError('height must be an integer')
+        if value < 0:
+            raise ValueError("height must be greater than 0")
+        self.height = value
+
+    def area(self):
+        """Calculate the area of a square."""
+        return (self.height * self.width)
+        
+class Square(Rectangle):
+    """A square class."""
+    
+    def area(self):
+        """Calculate the area of a rectangle."""
+        return (self.height * self.height)
+
+
+
