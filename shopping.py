@@ -1,17 +1,21 @@
 shopping_list = []
 print("Welcome Itoro's shopping mall")
 while True:
-    choice = input("Enter 0-to-exit; 1-to add item; 2-to remove item; 3-to view items in your cart ")
-    
+    choice = input(
+        "Enter 0-to-exit; 1-to add item; 2-to remove item; 3-to view items in your cart "
+    )
+
     if int(choice) == 0:
         break
 
     if int(choice) == 1:
         print("You can only add 5 items.")
-        for i in range(1,6):
+        for i in range(1, 6):
             item = input("Enter an item: ")
             shopping_list.append(item)
             print(f"You have {i} item in the cart")
+        print(f"Here are the items in your cart {shopping_list}")
+        checkout = int(input("Do you want to checkout now? Press 5"))
     elif int(choice) == 2:
         print(f"Items in your cart: {shopping_list}")
         del_choice = input("Enter 0 to empty the cart or an item you want to remove: ")
@@ -27,3 +31,12 @@ while True:
             print(item)
 
 
+cart = [
+    {
+        "item_one": "spoon",
+        "item_two": "yoghurt",
+        "item_three": "towels",
+        "item_four": "biscuit",
+        "item_five": "juice",
+    }
+]
