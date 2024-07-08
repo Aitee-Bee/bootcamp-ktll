@@ -24,6 +24,7 @@ while True:
         # print(f"Here are the items in your cart: {shopping_list}")
         checkout = int(input("Press 0 to checkout cart; \n Press 1 to remove an item "))
         if checkout == 0:
+            # do something here
             pass
         elif checkout == 1:
             pass
@@ -42,3 +43,10 @@ while True:
     elif choice == 3:
         for item in shopping_list:
             print(item)
+
+
+"""
+DRY - Don't Repeat Yourself
+
+"""
+
