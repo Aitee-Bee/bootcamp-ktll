@@ -20,8 +20,11 @@ This will be an intensive project towards building your first full web applicati
     save(self): updates the public instance attribute `updated_at` with the current datetime
     to_dict(self): returns a dictionary containing all keys/values of `__dict__` of the instance:
         by using `self.__dict__`, only instance attributes set will be returned
+
         a key `__class__` must be added to this dictionary with the class name of the object
+
         `created_at` and `updated_at` must be converted to string object in ISO format
+
             the format for the date %Y-%m-%dT%H:%M:%S.%f (exp: 2017-06-14T22:31:03.285259)
             you can use isoformat() of datetime object
         this method will create a dictionary representation with “simple object type” of our BaseModel
