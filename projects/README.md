@@ -56,26 +56,3 @@ Write a class `FileStorage` that serializes instances to a JSON file and deseria
     * `save(self)`: serializes `__objects` to the JSON file `(path: __file_path)`. Or you can understand it as saving the objects to a file by converting the `__object` dictionary
         object to a JSON string.
     * `reload(self)`: deserializes the JSON file to `__objects` (only if the JSON file (__file_path) exists ; otherwise, do nothing. If the file doesn’t exist, no exception should be raised)
-
-
-## TASK 4
-* Create `models/__init__.py` file. This file will create a unique `Filestorage` instance for the application.
-    * import `file_storage.py`
-    * create the variable `storage` as an instance of `Filestorage`
-    * call `reload()` method on this variable
-* Link your `BaseModel` to `Filestorage` using the variable `storage` by updating `models/base_model.py`
-    * import the variable `storage`
-    * call `save(self)` method of storage
-    * update `__init__(self, *args, **kwargs)`
-        * if it is a new instance (not from a dictionary representation), add a call to the method `new(self)` on `storage`
-
-## TASK 5
-* Write a program called `console.py` that contains the entry point of the command interpreter. This file should be in the root of the projects directory. This file will be used to run the entire application as a command prompt.
-
-    * Use the module `cmd`
-    * Your class definition: `class HBNBCommand(cmd.Cmd):`
-    * Your command interpreter should implement quit and EOF to exit the program
-    help (this action is provided by default by cmd but you should keep it updated and documented as you work through tasks)
-    * a custom prompt: (hbnb)
-    * an empty line + ENTER shouldn’t execute anything
-    * Your code should not be executed when imported
