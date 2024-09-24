@@ -5,6 +5,7 @@ saves it to a file and also deserializes the file back
 into a Python dictionary.
 """
 import json
+from models.base_model_soln import BaseModel
 
 
 class FileStorage:
@@ -19,14 +20,14 @@ class FileStorage:
         """
         Retrieves all the instances stored
         """
-        return self.__objects
+        return FileStorage.__objects
     
     def new(self, obj):
         """
         Insert or update the objects dict with the
         obj param
         """
-        self.__objects["{}.{}".format(type(obj).__name__, obj.id)] = obj
+        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
     
     def save(self):
         """
@@ -34,25 +35,23 @@ class FileStorage:
         """
         # data = {key: self.__objects[key].to_dict() for key in self.__objects.keys()}
 
-        data = {}
-        for key in self.__objects:
-            data[key] = self.__objects[key].to_dict()
-        
-        with open(self.__file_path, "w+") as file:
-            json.dump(data, file)
+        with open(FileStorage.__file_path, 'w+') as f:
+            data = {}
+            data.update(FileStorage.__objects)
+            for key, val in data.items():
+                data[key] = val.to_dict()
+            json.dump(data, f)
     
     def reload(self):
         """
         Deserializes JSON file into a Python dict
         """
+        classes = {"BaseModel": BaseModel}
         try:
-            with open(self.__objects) as file:
-                for obj in json.load(file).values():
-                    name = obj['__class__']
-                    del obj["__class__"]
-                    self.new(eval(name)(**obj))
+            data = {}
+            with open(FileStorage.__file_path, 'r') as f:
+                data = json.load(f)
+                for key, val in data.items():
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
-
-
-obje = FileStorage()
