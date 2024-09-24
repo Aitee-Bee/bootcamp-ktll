@@ -1,4 +1,8 @@
 import json
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
 
 
 class FileStorage:
@@ -10,13 +14,13 @@ class FileStorage:
         if cls is None:
             return self.__objects
 
-        prefix = f"{cls.__name__}."
-        result = {}
-        for k, v in self.__objects.items():
-            if k.startswith(prefix):
-                result[k] = v
+        # prefix = f"{cls.__name__}."
+        # result = {}
+        # for k, v in self.__objects.items():
+        #     if k.startswith(prefix):
+        #         result[k] = v
 
-        return result
+        # return result
 
     def new(self, obj):
         """Updates the '__objects' dict"""
